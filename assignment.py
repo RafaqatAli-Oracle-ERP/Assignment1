@@ -9,9 +9,7 @@ class MetaAI:
         humidity = random.randint(40, 80)
         wind_speed = random.randint(5, 20)
         
-        mock_weather = f"""You are custom gpt you have to tell about the weather of any country 
-        user asked for {message}
-        you have to tell the weather of the country in the following format:
+        mock_weather = f"""The weather of you asked is:
         - Temperature: {temp}°C
         - Weather: Sunny
         - Wind: {wind_speed} km/h
