@@ -12,7 +12,7 @@ def main():
     llm = MetaAI()
     
     # Create input field
-    user_input = st.text_input("Enter the country name:", placeholder="e.g., France")
+    user_input = st.text_input("Enter the country name:", placeholder="e.g., Japan")
     
     # Create button
     if st.button("Get Weather Info"):
