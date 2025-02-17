@@ -18,7 +18,7 @@ def main():
     if st.button("Get Weather Info"):
         if user_input:
             # Show loading spinner
-            with st.spinner("Fetching weather information..."):
+            #with st.spinner("Fetching weather information..."):
                 prompt = f"""You are custom gpt you have to tell about the weather of any country user asked 
                     user asked for {user_input}
                     you have to tell the weather of the country in the following format:
