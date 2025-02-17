@@ -2,52 +2,41 @@ import streamlit as st
 from meta_ai_api import MetaAI
 
 def main():
-    # Set up page config
-    st.set_page_config(page_title="Weather Information", page_icon="🌤️")
+    # Page configuration
+    st.set_page_config(page_title="Weather Assistant", page_icon="🌤️")
     
-    # Add title
-    st.title("🌍 Global Weather Information")
+    # Title and description
+    st.title("🌍 Weather Assistant")
+    st.write("Get weather information for any country")
     
     # Initialize MetaAI
     llm = MetaAI()
     
     # Create input field
-    user_input = st.text_input("Enter the country name:", placeholder="e.g., Japan")
+    user_input = st.text_input("Enter a country name:", placeholder="e.g., France")
     
-    # Create button
-    if st.button("Get Weather Info"):
+    # Add a button to get weather
+    if st.button("Get Weather"):
         if user_input:
-            # Show loading spinner
-            #with st.spinner("Fetching weather information..."):
-                prompt = f"""You are custom gpt you have to tell about the weather of any country user asked 
-                    user asked for {user_input}
-                    you have to tell the weather of the country in the following format:
-                    - Temperature: 20°C
-                    - Weather: Sunny
-                    - Wind: 10 km/h
-                    - Humidity: 50%
-                    - Precipitation: 0 mm
-                    - Cloud cover: 50%
-                    - Wind direction: North
-                    - Wind speed: 10 km/h
-                    - Visibility: 10 km
-                    - Pressure: 1000 hPa
-                    - Dew point: 10°C
-                    - UV index: 10
-                    - Sunrise: 06:00
-                    - Sunset: 18:00
-                    - Moon phase: Full moon
-                    - Moon illumination: 100%
+            with st.spinner("Fetching weather information..."):
+                prompt = f"""You are a weather assistant. Provide weather information for {user_input}.
+                Format your response exactly like this:
+                - Temperature: 20°C
+                - Weather: Sunny
+                - Wind: 10 km/h
+                - Humidity: 50%
 
-                    and if the user asked something else you have to tell that you are not able cable of that 
+                If the input is not a country, respond with: "I can only provide weather for countries."
                 """
                 
-                response = llm.prompt(prompt)
-                # Display the response in a nice box
-                st.markdown("### Weather Information")
-                st.info(response["message"])
+                try:
+                    response = llm.prompt(prompt)
+                    st.subheader("Weather Information:")
+                    st.info(response["message"])
+                except Exception as e:
+                    st.error("Error getting weather information. Please try again.")
         else:
-            st.warning("Please enter a country name!")
+            st.warning("Please enter a country name.")
 
 if __name__ == "__main__":
     main()
